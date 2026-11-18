@@ -1,0 +1,1 @@
+{"name":"jingcaixing-admin","private":true,"scripts":{"dev":"vite --port 5174","build":"vite build"},"dependencies":{"@vitejs/plugin-vue":"latest","vite":"latest","vue":"latest"},"devDependencies":{}}

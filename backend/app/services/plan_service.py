@@ -1,11 +1,17 @@
 from sqlalchemy.orm import Session
 from app.core.exceptions import BusinessError
+from app.core.config import get_settings
 from app.repositories.attraction_repo import AttractionRepository
 from app.schemas.plan import DayPlan, EditPlanRequest, Itinerary, PlanItem, PlanRequest
 from app.services.mock_ai_service import MockAIService
+from app.services.qwen_ai_service import QwenAIService
 class PlanService:
     def __init__(self): self.repo, self.mock_ai = AttractionRepository(), MockAIService()
-    def generate(self, db: Session, request: PlanRequest) -> Itinerary: return self.mock_ai.generate(request, self.repo.list(db))
+    def generate(self, db: Session, request: PlanRequest) -> Itinerary:
+        attractions = self.repo.list(db)
+        if get_settings().ai_provider == "qwen":
+            return QwenAIService(get_settings()).generate(request, attractions)
+        return self.mock_ai.generate(request, attractions)
     def add(self, db: Session, request: EditPlanRequest) -> Itinerary:
         if not self.repo.get(db, request.attraction_id): raise BusinessError("ATTRACTION_NOT_FOUND", "景点不存在", 404)
         return self._edit(request, True)

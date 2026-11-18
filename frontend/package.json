@@ -1,1 +1,1 @@
-{"name":"jingcaixing-frontend","private":true,"scripts":{"dev":"vite","build":"vite build"},"dependencies":{"@vitejs/plugin-vue":"latest","vite":"latest","vue":"latest"},"devDependencies":{}}
+{"name":"jingcaixing-frontend","private":true,"scripts":{"dev":"vite","build":"vite build"},"dependencies":{"@vitejs/plugin-vue":"latest","html2canvas":"^1.4.1","vite":"latest","vue":"latest"},"devDependencies":{}}
